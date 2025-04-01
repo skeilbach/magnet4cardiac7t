@@ -1,4 +1,4 @@
-from ..data import Simulation, SimulationData, CoilConfig
+from ..data.simulation import Simulation, SimulationData, CoilConfig
 from .base import BaseOptimizer
 
 from typing import Callable
@@ -13,10 +13,10 @@ class DummyOptimizer(BaseOptimizer):
     """
     def __init__(self,
                  cost_function: Callable[[SimulationData], float],
-                 direction: str = "min",
-                 num_samples: int = 100) -> None:
+                 direction: str = "minimize",
+                 max_iter: int = 100) -> None:
         super().__init__(cost_function, direction)
-        self.num_samples = num_samples
+        self.max_iter = max_iter
         
     def _sample_coil_config(self) -> CoilConfig:
         phase = np.random.uniform(low=0, high=2*np.pi, size=(8,))
@@ -25,15 +25,15 @@ class DummyOptimizer(BaseOptimizer):
         
     def optimize(self, simulation: Simulation):
         best_coil_config = None
-        best_cost = -np.inf if self.direction == "max" else np.inf
+        best_cost = -np.inf if self.direction == "maximize" else np.inf
         
-        pbar = trange(self.num_samples)
+        pbar = trange(self.max_iter)
         for i in pbar:
             coil_config = self._sample_coil_config()
             simulation_data = simulation(coil_config)
             
             cost = self.cost_function(simulation_data)
-            if (self.direction == "min" and cost < best_cost) or (self.direction == "max" and cost > best_cost):
+            if (self.direction == "minimize" and cost < best_cost) or (self.direction == "maximize" and cost > best_cost):
                 best_cost = cost
                 best_coil_config = coil_config
                 pbar.set_postfix_str(f"Best cost {best_cost:.2f}")

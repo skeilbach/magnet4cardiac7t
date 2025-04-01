@@ -1,5 +1,5 @@
 from .base import BaseCost
-from ..data import SimulationData
+from ..data.simulation import SimulationData
 
 import numpy as np
 
@@ -7,7 +7,7 @@ import numpy as np
 class B1HomogeneityCost(BaseCost):
     def __init__(self) -> None:
         super().__init__()
-        self.direction = "min"
+        self.direction = "minimize"
         
     def _calculate_b1_field(self, field: np.ndarray) -> np.ndarray:
         b_field = field[1]
