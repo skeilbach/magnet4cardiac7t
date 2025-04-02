@@ -11,7 +11,7 @@ if __name__ == "__main__":
     simulation = Simulation("data/simulations/children_2_tubes_7_id_3012.h5")
     
     # Define optimizer
-    optimizer = DummyOptimizer(cost_function=B1HomogeneityCost(), direction="max")
+    optimizer = DummyOptimizer(cost_function=B1HomogeneityCost(), direction="maximize")
     
     # Optimize
     best_coil_config = optimizer.optimize(simulation)
