@@ -1,4 +1,5 @@
 from ..data.simulation import Simulation, SimulationData, CoilConfig
+from ..costs.base import BaseCost
 from .base import BaseOptimizer
 
 from typing import Callable
@@ -12,10 +13,9 @@ class DummyOptimizer(BaseOptimizer):
     DummyOptimizer is a dummy optimizer that randomly samples coil configurations and returns the best one.
     """
     def __init__(self,
-                 cost_function: Callable[[SimulationData], float],
-                 direction: str = "minimize",
+                 cost_function: BaseCost,
                  max_iter: int = 100) -> None:
-        super().__init__(cost_function, direction)
+        super().__init__(cost_function)
         self.max_iter = max_iter
         
     def _sample_coil_config(self) -> CoilConfig:
