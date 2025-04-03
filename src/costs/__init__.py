@@ -1,1 +1,2 @@
 from .b1_homogeneity import B1HomogeneityCost
+from .b1_homogeneity_minmax import B1HomogeneityMinMaxCost
