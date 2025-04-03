@@ -50,7 +50,7 @@ class Simulation:
 
         simulation_raw_data = SimulationRawData(
             simulation_name=read_simulation_name(),
-            input=read_physical_properties(),
+            properties=read_physical_properties(),
             field=read_field(),
             subject=read_subject_mask(),
             coil=read_coil_mask()
@@ -80,7 +80,7 @@ class Simulation:
         
         simulation_data = SimulationData(
             simulation_name=self.simulation_raw_data.simulation_name,
-            input=self.simulation_raw_data.input,
+            properties=self.simulation_raw_data.properties,
             field=field_shifted,
             subject=self.simulation_raw_data.subject,
             coil_config=coil_config
