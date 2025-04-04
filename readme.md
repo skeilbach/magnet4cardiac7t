@@ -24,6 +24,24 @@ $$
 \hat{H_i} = A_i e^{i\varphi} H_i 
 $$
 
+## Data
+You can download the data from [Google Drive](https://drive.google.com/drive/folders/17yIm9Pjc1QsyB-fAGvf5FCk9AmqIDXUW?usp=drive_link)
+
+Place the data directory in the main directory of the project. It should look something like this:
+
+```plaintext 
+project/ 
+├── ...
+├── data/
+│ ├── simulations/
+│ │ ├── sim1.h5     
+│ │ ├── sim2.h5     
+│ │ └── ...     
+│ └── antenna/
+│ │ └── antenna.h5     
+└── ...
+```
+
 ## Ideas where to go from here
 - Implement parallel processing and evaluation
 - Optimize the calculation of phase-shifted fields
