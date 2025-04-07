@@ -20,7 +20,7 @@ class DummyOptimizer(BaseOptimizer):
         
     def _sample_coil_config(self) -> CoilConfig:
         phase = np.random.uniform(low=0, high=2*np.pi, size=(8,))
-        amplitude = np.random.uniform(low=0, high=10, size=(8,))
+        amplitude = np.random.uniform(low=0, high=1, size=(8,))
         return CoilConfig(phase=phase, amplitude=amplitude)
         
     def optimize(self, simulation: Simulation):

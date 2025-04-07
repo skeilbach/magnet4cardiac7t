@@ -17,4 +17,4 @@ class B1HomogeneityCost(BaseCost):
         
         b1_field_abs = np.abs(b1_field)
         b1_field_subject_voxels = b1_field_abs[subject]
-        return (np.mean(b1_field_subject_voxels)/np.std(b1_field_subject_voxels)).item()
+        return (np.mean(b1_field_subject_voxels)/np.std(b1_field_subject_voxels))

@@ -7,8 +7,8 @@ class CoilConfig:
     """
     Stores the coil configuration data i.e. the phase and amplitude of each coil.
     """
-    phase: npt.NDArray[np.float32] = field(default_factory=lambda: np.zeros((8,), dtype=np.float32))
-    amplitude: npt.NDArray[np.float32] = field(default_factory=lambda: np.ones((8,), dtype=np.float32))
+    phase: npt.NDArray[np.float64] = field(default_factory=lambda: np.zeros((8,), dtype=np.float64))
+    amplitude: npt.NDArray[np.float64] = field(default_factory=lambda: np.ones((8,), dtype=np.float64))
     
     def _post_init_(self):
         self.phase = np.array(self.phase)
@@ -24,8 +24,8 @@ class SimulationData:
     Stores the simulation data for a specific coil configuration.
     """
     simulation_name: str
-    properties: npt.NDArray[np.float32]
-    field: npt.NDArray[np.float32]
+    properties: npt.NDArray[np.float64]
+    field: npt.NDArray[np.float64]
     subject: npt.NDArray[np.bool_]
     coil_config: CoilConfig
     
@@ -35,7 +35,7 @@ class SimulationRawData:
     Stores the raw simulation data. Each coil contribution is stored separately along an additional dimension.
     """
     simulation_name: str
-    properties: npt.NDArray[np.float32]
-    field: npt.NDArray[np.float32]
+    properties: npt.NDArray[np.float64]
+    field: npt.NDArray[np.float64]
     subject: npt.NDArray[np.bool_]
-    coil: npt.NDArray[np.float32]
+    coil: npt.NDArray[np.float64]
