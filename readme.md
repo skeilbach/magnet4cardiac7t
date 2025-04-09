@@ -55,7 +55,7 @@ For the purposes of this task we consider two cost functions:
 #### B1 Homogeneity
 Given the $B_1^+$ Field calculated as $B_x + i*B_y$ we consider the cost function:
 
-$$\operatorname{cost}_1(\varphi, A) = \frac{\operatorname{mean}(|B_1^+|)}{\operatorname{std}(|B_1^+|)}$$
+$$\text{cost}_1(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)}$$
 
 This cost function maximizes the mean strength of the $B_1^+ Field$, while simultaneously minimizing the variability of the field within the subject.
 The task is to maximize this cost function.
@@ -64,11 +64,11 @@ The task is to maximize this cost function.
 Additionally, we also consider the cost function which maximizes the $B_1^+$ Homogeneity, while also minimizing the peak SAR.
 The cost function is given by
 
-$$\operatorname{cost}_2(\varphi, A) = \frac{\operatorname{mean}(|B_1^+|)}{\operatorname{std}(|B_1^+|)} - \lambda\max_{x\in subject}\operatorname{SAR}(x)$$
+$$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} - \lambda\max_{x\in subject}\text{SAR}(x)$$
 
-Where $\lambda$ is an additional weighting factor and $\operatorname{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
+Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
 
-$$\operatorname{SAR}(x) = \frac{||E(x)||^2\cdot\sigma(x)}{\rho(x)}$$
+$$\text{SAR}(x) = \frac{||E(x)||^2\cdot\sigma(x)}{\rho(x)}$$
 
 with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density
 
