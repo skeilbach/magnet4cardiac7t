@@ -50,7 +50,27 @@ This can significantly change the overall distribution of the fields and in resu
 
 Your task is to optimize the phase and amplitude of the coils (coil configuration) with respect to a specified cost function (e.g. $B_1$ homogeneity, minimal peak SAR etc.). 
 
+For the purposes of this task we consider two cost functions:
 
+#### B1 Homogeneity
+Given the $B_1^+$ Field calculated as $B_x + i*B_y$ we consider the cost function:
+
+$$\operatorname{cost}_1(\varphi, A) = \frac{\operatorname{mean}(|B_1^+|)}{\operatorname{std}(|B_1^+|)}$$
+
+This cost function maximizes the mean strength of the $B_1^+ Field$, while simultaneously minimizing the variability of the field within the subject.
+The task is to maximize this cost function.
+
+#### B1 Homogeneity with SAR constraint
+Additionally, we also consider the cost function which maximizes the $B_1^+$ Homogeneity, while also minimizing the peak SAR.
+The cost function is given by
+
+$$\operatorname{cost}_2(\varphi, A) = \frac{\operatorname{mean}(|B_1^+|)}{\operatorname{std}(|B_1^+|)} - \lambda\max_{x\in subject}\operatorname{SAR}(x)$$
+
+Where $\lambda$ is an additional weighting factor and $\operatorname{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
+
+$$\operatorname{SAR}(x) = \frac{||E(x)||^2\cdot\sigma(x)}{\rho(x)}$$
+
+with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density
 
 ## Data
 You can download the data from [Google Drive](https://drive.google.com/drive/folders/17yIm9Pjc1QsyB-fAGvf5FCk9AmqIDXUW?usp=drive_link)
@@ -70,6 +90,11 @@ project/
 └── ...
 ```
 
+## Evaluation
+All teams will be asked to submit their solutions as a git repository. In the git repository the `main.py` should be modified (only) to include the optimization algorithm developed by the team. The `evaluation.py` script should not be changed at all.
+
+Each submission will be evaluated on a previously unseen set of simulations, with both cost functions specified in the task. The optimization algorithm should run within 5 Minutes after which the program execution will timeout and the solution will be disqualified.
+ 
 ## Ideas where to go from here
 - Implement parallel processing and evaluation
 - Optimize the calculation of phase-shifted fields
