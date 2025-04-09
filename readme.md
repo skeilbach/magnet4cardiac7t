@@ -96,7 +96,7 @@ All teams will be asked to submit their solutions as a git repository. In the gi
 Each submission will be evaluated on a previously unseen set of simulations, with both cost functions specified in the task. The optimization algorithm should run within 5 Minutes after which the program execution will timeout and the solution will be disqualified.
  
 ## Ideas where to go from here
-- Implement parallel processing and evaluation
-- Optimize the calculation of phase-shifted fields
-- Optimize the cost function calculation
-- Run on GPU
+- Implement parallel processing during optimization
+- Speed up the calculation of phase-shifted fields
+- Run pytorch (or other DL software) to use gradient descent for local optimization
+- Try out different global optimization algorithms
