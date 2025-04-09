@@ -68,7 +68,7 @@ $$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} -
 
 Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
 
-$$\text{SAR}(x) = \frac{||E(x)||^2\cdot\sigma(x)}{\rho(x)}$$
+$$\text{SAR}(x) = \frac{|E(x)|^2\cdot\sigma(x)}{\rho(x)}$$
 
 with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density
 
