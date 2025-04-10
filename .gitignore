@@ -1,5 +1,7 @@
 /.venv
 /data
+test.ipynb
+.idea/
 
 # python cache and compiled files
 **.pyc

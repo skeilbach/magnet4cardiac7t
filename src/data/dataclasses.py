@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 import numpy.typing as npt
 import numpy as np
+from typing import Optional
 
 @dataclass
 class CoilConfig:
@@ -9,7 +10,7 @@ class CoilConfig:
     """
     phase: npt.NDArray[np.float64] = field(default_factory=lambda: np.zeros((8,), dtype=np.float64))
     amplitude: npt.NDArray[np.float64] = field(default_factory=lambda: np.ones((8,), dtype=np.float64))
-    
+
     def _post_init_(self):
         self.phase = np.array(self.phase)
         self.amplitude = np.array(self.amplitude)
@@ -25,7 +26,7 @@ class SimulationData:
     simulation_name: str
     properties: npt.NDArray[np.float64]
     field: npt.NDArray[np.float64]
-    subject: npt.NDArray[np.bool_]
+    subject: npt.NDArray[np.bool_]  # The mask of the ROI (subject) in the entire simulated domain
     coil_config: CoilConfig
     
 @dataclass
