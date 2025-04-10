@@ -2,12 +2,13 @@ from src.costs.base import BaseCost
 from src.optimizers import DummyOptimizer
 from src.data import Simulation, CoilConfig
 from src.costs.b1_homogeneity import B1HomogeneityCost
+import time
 
 import numpy as np
 
 def run(simulation: Simulation, 
         cost_function: BaseCost,
-        timeout: int = 100) -> CoilConfig:
+        timeout: int = 10) -> CoilConfig:
     """
         Main function to run the optimization, returns the best coil configuration
 
@@ -17,7 +18,7 @@ def run(simulation: Simulation,
             timeout: Time (in seconds) after which the evaluation script will be terminated
     """
     optimizer = DummyOptimizer(cost_function=cost_function)
-    best_coil_config = optimizer.optimize(simulation)
+    best_coil_config = optimizer.optimize(simulation, timeout=timeout)
     return best_coil_config
 
 if __name__ == "__main__":
