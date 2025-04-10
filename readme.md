@@ -64,13 +64,13 @@ The task is to maximize this cost function.
 Additionally, we also consider the cost function which maximizes the $B_1^+$ Homogeneity, while also minimizing the peak SAR.
 The cost function is given by
 
-$$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} - \lambda\max_{x\in subject}\text{SAR}(x)$$
+$$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} + \lambda \frac{\text{min}(|B_1^+|)}{\sqrt{\text{max}(SAR)}}$$
 
 Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
 
 $$\text{SAR}(x) = \frac{|E(x)|^2\cdot\sigma(x)}{\rho(x)}$$
 
-with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density
+with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density. During evaluation a weighting factor of $\lambda=100$ will be used.
 
 ## Data
 You can download the data from [Google Drive](https://drive.google.com/drive/folders/17yIm9Pjc1QsyB-fAGvf5FCk9AmqIDXUW?usp=drive_link)
@@ -94,6 +94,8 @@ project/
 All teams will be asked to submit their solutions as a git repository. In the git repository the `main.py` should be modified (only) to include the optimization algorithm developed by the team. The `evaluation.py` script should not be changed at all.
 
 Each submission will be evaluated on a previously unseen set of simulations, with both cost functions specified in the task. The optimization algorithm should run within 5 Minutes after which the program execution will timeout and the solution will be disqualified.
+
+For the second cost function a weighting factor of $\lambda = 100$ will be used during evaluation.
  
 ## Ideas where to go from here
 - Implement parallel processing during optimization
