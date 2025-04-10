@@ -1,4 +1,4 @@
-from ..data.simulation import SimulationDataTorch
+from ..data.simulation_torch import SimulationDataTorch
 from abc import ABC, abstractmethod
 
 class BaseCost(ABC):

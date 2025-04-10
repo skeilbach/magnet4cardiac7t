@@ -1,4 +1,4 @@
-from ..data.simulation import Simulation, SimulationDataTorch, CoilConfigTorch
+from ..data.simulation_torch import Simulation, SimulationDataTorch, CoilConfigTorch
 from ..costs.base import BaseCost
 from .base import BaseOptimizer
 import time

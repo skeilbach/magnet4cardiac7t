@@ -6,7 +6,7 @@ import os
 import einops
 import torch
 from typing import Tuple
-from .dataclasses import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch, CoilConfig
+from .dataclasses_torch import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch, CoilConfig, SimulationData
 
 
 

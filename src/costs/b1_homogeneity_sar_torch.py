@@ -1,6 +1,6 @@
 from .base import BaseCost
-from ..data.simulation import SimulationData
-from ..data.utils import B1Calculator, SARCalculator, B1CalculatorTorch, SARCalculatorTorch
+from ..data.simulation_torch import SimulationData
+from ..data.utils_torch import B1Calculator, SARCalculator, B1CalculatorTorch, SARCalculatorTorch
 
 import numpy as np
 import torch

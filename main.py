@@ -1,7 +1,7 @@
 from src.costs.base import BaseCost
 from src.optimizers import OurOptimizer
 from src.data import Simulation, CoilConfig
-from src.costs.b1_homogeneity import B1HomogeneityCost
+from src.costs.b1_homogeneity_torch import B1HomogeneityCost
 import time
 
 import numpy as np
