@@ -54,3 +54,22 @@ class SARCalculator:
 
         pointwise_sar = conductivity*abs_efield_sq/density
         return pointwise_sar
+    
+class SARCalculatorTorch:
+    """
+    Class to calculate SAR from simulation data.
+    """
+
+    def __call__(self, simulation_data: SimulationData) -> torch.Tensor:
+        return self.calculate_sar(simulation_data)
+
+    def calculate_sar(self, simulation_data: SimulationData) -> torch.Tensor:
+        e_field = simulation_data.field[0]
+        abs_efield_sq = torch.sum(e_field**2, dim=(0,1))
+
+        # get the conductivity and density tensors
+        conductivity = simulation_data.properties[0]
+        density = simulation_data.properties[2]
+
+        pointwise_sar = conductivity*abs_efield_sq/density
+        return pointwise_sar

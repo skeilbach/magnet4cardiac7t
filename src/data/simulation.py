@@ -6,7 +6,7 @@ import os
 import einops
 import torch
 from typing import Tuple
-from .dataclasses import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch
+from .dataclasses import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch, CoilConfig
 
 
 
@@ -39,7 +39,7 @@ class Simulation:
                 subject = f["subject"][:]
             subject = np.max(subject, axis=-1)
 
-            return subject
+            return torch.tensor(subject, dtype=torch.bool)
         
         def read_coil_mask() -> npt.NDArray[np.float32]:
             if self.coil_path:
@@ -112,7 +112,8 @@ class Simulation:
     def _shift_fieldTorch(self, 
                     field: torch.Tensor, 
                     phase: torch.Tensor, 
-                    amplitude: torch.Tensor) -> torch.Tensor:
+                    amplitude: torch.Tensor,
+                    subject: torch.Tensor) -> torch.Tensor:
         """
         Shift the field calculating field_shifted = field * amplitude (e ^ (phase * 1j)) and summing over all coils.
         """
@@ -122,13 +123,21 @@ class Simulation:
         coeffs_im = torch.stack((im_phase, re_phase), dim=0)
         coeffs = torch.stack((coeffs_real, coeffs_im), dim=0)
         coeffs = einops.repeat(coeffs, 'reimout reim coils -> hf reimout reim coils', hf=2)
+
+        # keep_axis0 = subject.any(dim=(1, 2))  # Result is 1D tensor of shape (data.shape[0],)
+        # keep_axis1 = subject.any(dim=(0, 2))  # Result is 1D tensor of shape (data.shape[1],)
+        # keep_axis2 = subject.any(dim=(0, 1))  # Result is 1D tensor of shape (data.shape[2],)
+
+        # # Use advanced indexing to filter the field tensor
+        # field_sliced = field[:, :, :, keep_axis0, :, :, :][:, :, :, :, keep_axis1, :, :][:, :, :, :, :, keep_axis2, :]
+
         field_shift = einops.einsum(field, coeffs, 'hf reim fieldxyz ... coils, hf reimout reim coils -> hf reimout fieldxyz ...')
 
         return field_shift
     
     def phase_shift(self, coil_config: CoilConfigTorch) -> SimulationDataTorch:
         
-        field_shifted = self._shift_fieldTorch(self.simulation_raw_data.field, coil_config.phase, coil_config.amplitude)
+        field_shifted = self._shift_fieldTorch(self.simulation_raw_data.field, coil_config.phase, coil_config.amplitude, self.simulation_raw_data.subject)
         
         simulation_data = SimulationDataTorch(
             simulation_name=self.simulation_raw_data.simulation_name,

@@ -1,2 +1,2 @@
 from .dummy import DummyOptimizer
-from .schad import OurOptimizer
+from .pytorch_adam import OurOptimizer
