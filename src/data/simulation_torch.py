@@ -1,4 +1,3 @@
-
 import numpy.typing as npt
 import numpy as np
 import h5py
@@ -6,11 +5,11 @@ import os
 import einops
 import torch
 from typing import Tuple
-from .dataclasses_torch import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch, CoilConfig, SimulationData
+from .dataclasses import SimulationRawDataTorch, SimulationDataTorch, CoilConfigTorch, CoilConfig, SimulationData
 
 
 
-class Simulation:
+class SimulationTorch:
     def __init__(self, 
                  path: str,
                  sparse_sampling: bool,

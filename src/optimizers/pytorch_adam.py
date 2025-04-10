@@ -1,4 +1,4 @@
-from ..data.simulation_torch import Simulation, SimulationDataTorch, CoilConfigTorch, CoilConfig
+from ..data.simulation_torch import SimulationTorch, SimulationDataTorch, CoilConfigTorch
 from ..costs.base import BaseCost
 from .base import BaseOptimizer
 
@@ -21,9 +21,9 @@ class OurOptimizer(BaseOptimizer):
     def conv_coilconfig(self, coilconfig_torch):
         x1 = coilconfig_torch.phase.detach().numpy()
         x2 = coilconfig_torch.amplitude.detach().numpy()
-        return CoilConfig(phase=x1, amplitude=x2)
+        return CoilConfigTorch(phase=x1, amplitude=x2)
 
-    def optimize(self, simulation: Simulation):
+    def optimize(self, simulation: SimulationTorch):
       
         raw_x1 = torch.rand(8, dtype=torch.float64, requires_grad=True) #phase
         raw_x2 = torch.rand(8, dtype=torch.float64, requires_grad=True) #amplitude

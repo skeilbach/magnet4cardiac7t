@@ -1,4 +1,4 @@
-from ..data.simulation_torch import Simulation, SimulationDataTorch, CoilConfigTorch
+from ..data.simulation import Simulation, SimulationData, CoilConfig
 from ..costs.base import BaseCost
 from .base import BaseOptimizer
 import time
@@ -11,18 +11,19 @@ class DummyOptimizer(BaseOptimizer):
     """
     DummyOptimizer is a dummy optimizer that randomly samples coil configurations and returns the best one.
     """
+
     def __init__(self,
                  cost_function: BaseCost,
                  max_iter: int = 100) -> None:
         super().__init__(cost_function)
         self.max_iter = max_iter
-        
-    def _sample_coil_config(self) -> CoilConfigTorch:
-        phase = np.random.uniform(low=0, high=2*np.pi, size=(8,))
+
+    def _sample_coil_config(self) -> CoilConfig:
+        phase = np.random.uniform(low=0, high=2 * np.pi, size=(8,))
         amplitude = np.random.uniform(low=0, high=1, size=(8,))
-        return CoilConfigTorch(phase=phase, amplitude=amplitude)
-        
-    def optimize(self, simulation: Simulation):
+        return CoilConfig(phase=phase, amplitude=amplitude)
+
+    def optimize(self, simulation: Simulation, timeout: int = 300):
         best_coil_config = None
         best_cost = -np.inf if self.direction == "maximize" else np.inf
 

@@ -1,5 +1,5 @@
 import numpy as np
-from .dataclasses_torch import SimulationData
+from .dataclasses import SimulationData
 
 class B1Calculator:
     """

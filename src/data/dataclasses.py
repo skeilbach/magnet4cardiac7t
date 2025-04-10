@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 import numpy.typing as npt
 import numpy as np
 from typing import Optional
+import torch
 
 @dataclass
 class CoilConfig:
@@ -41,7 +42,7 @@ class SimulationRawData:
     coil: npt.NDArray[np.float64]
 
 
-import torch
+# Define the same classes for torch implementation
 
 @dataclass
 class CoilConfigTorch:
