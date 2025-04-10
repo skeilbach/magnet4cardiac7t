@@ -1,1 +1,2 @@
 from .dummy import DummyOptimizer
+from .differential_evolution import DifferentialEvolutionOptimizer

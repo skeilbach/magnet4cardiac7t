@@ -13,8 +13,8 @@ class B1HomogeneityMinMaxCost(BaseCost):
 
     def calculate_cost(self, simulation_data: SimulationData) -> float:
         b1_field = self.b1_calculator(simulation_data)
-        subject = simulation_data.subject
+        #subject = simulation_data.subject
         
         b1_field_abs = np.abs(b1_field)
-        b1_field_subject_voxels = b1_field_abs[subject]
-        return np.mean(b1_field_subject_voxels)/(np.max(b1_field_subject_voxels) - np.min(b1_field_subject_voxels))
+        #b1_field_subject_voxels = b1_field_abs[subject]
+        return np.mean(b1_field_abs)/(np.max(b1_field_abs) - np.min(b1_field_abs))

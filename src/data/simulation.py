@@ -13,9 +13,11 @@ from .dataclasses import SimulationRawData, SimulationData, CoilConfig
 class Simulation:
     def __init__(self, 
                  path: str,
+                 sparse_sampling: bool,
                  coil_path: str = None):
         self.path = path
         self.coil_path = coil_path
+        self.sparse_sampling = sparse_sampling
         
         self.simulation_raw_data = self._load_raw_simulation_data()
         
@@ -77,35 +79,38 @@ class Simulation:
         coeffs = np.stack((coeffs_real, coeffs_im), axis=0)  # shape (2, 2, 8)
         coeffs = einops.repeat(coeffs, 'reimout reim coils -> hf reimout reim coils', hf=2)
 
-        # Determine which indices to keep along each axis
-        # For axis 0: Keep index 'i' if *any* value in the mask slice mask[i, :, :] is True.
-        # We check for 'any' across axes 1 and 2.
-        keep_axis0 = subject.any(axis=(1, 2))  # Result is 1D array of shape (data.shape[0],)
+        if self.sparse_sampling:
+            # Determine which indices to keep along each axis
+            # For axis 0: Keep index 'i' if *any* value in the mask slice mask[i, :, :] is True.
+            # We check for 'any' across axes 1 and 2.
+            keep_axis0 = subject.any(axis=(1, 2))  # Result is 1D array of shape (data.shape[0],)
 
-        # For axis 1: Keep index 'j' if *any* value in the mask slice mask[:, j, :] is True.
-        # We check for 'any' across axes 0 and 2.
-        keep_axis1 = subject.any(axis=(0, 2))  # Result is 1D array of shape (data.shape[1],)
+            # For axis 1: Keep index 'j' if *any* value in the mask slice mask[:, j, :] is True.
+            # We check for 'any' across axes 0 and 2.
+            keep_axis1 = subject.any(axis=(0, 2))  # Result is 1D array of shape (data.shape[1],)
 
-        # For axis 2: Keep index 'k' if *any* value in the mask slice mask[:, :, k] is True.
-        # We check for 'any' across axes 0 and 1.
-        keep_axis2 = subject.any(axis=(0, 1))  # Result is 1D array of shape (data.shape[2],)
+            # For axis 2: Keep index 'k' if *any* value in the mask slice mask[:, :, k] is True.
+            # We check for 'any' across axes 0 and 1.
+            keep_axis2 = subject.any(axis=(0, 1))  # Result is 1D array of shape (data.shape[2],)
 
-        # Use np.ix_ for advanced indexing (use prior knowledge of the shape of the field data which has shape (2, 2, 3, 121, 111, 126, 8))
-        indexers = np.ix_(
-            np.full(2, True),  # Dimension 0 (shape 2) - keep all
-            np.full(2, True),  # Dimension 1 (shape 2) - keep all
-            np.full(3, True),  # Dimension 2 (shape 3) - keep all
-            keep_axis0,  # Dimension 3 (shape 121) - filter using mask's 1st dim logic
-            keep_axis1,  # Dimension 4 (shape 111) - filter using mask's 2nd dim logic
-            keep_axis2,  # Dimension 5 (shape 126) - filter using mask's 3rd dim logic
-            np.full(8, True)  # Dimension 6 (shape 8) - keep all
-        )
+            # Use np.ix_ for advanced indexing (use prior knowledge of the shape of the field data which has shape (2, 2, 3, 121, 111, 126, 8))
+            indexers = np.ix_(
+                np.full(2, True),  # Dimension 0 (shape 2) - keep all
+                np.full(2, True),  # Dimension 1 (shape 2) - keep all
+                np.full(3, True),  # Dimension 2 (shape 3) - keep all
+                keep_axis0,  # Dimension 3 (shape 121) - filter using mask's 1st dim logic
+                keep_axis1,  # Dimension 4 (shape 111) - filter using mask's 2nd dim logic
+                keep_axis2,  # Dimension 5 (shape 126) - filter using mask's 3rd dim logic
+                np.full(8, True)  # Dimension 6 (shape 8) - keep all
+            )
 
-        # Apply the indexing to the high-dimensional data array
-        field_sliced = field[indexers]
+            # Apply the indexing to the high-dimensional data array
+            field = field[indexers]  # shape (2, 2, 3, len(keep_axis0), len(keep_axis1), len(keep_axis2))
+        else:
+            pass
 
         # Apply the indexing to the data array
-        field_shift = einops.einsum(field_sliced, coeffs, 'hf reim fieldxyz ... coils, hf reimout reim coils -> hf reimout fieldxyz ...')
+        field_shift = einops.einsum(field, coeffs, 'hf reim fieldxyz ... coils, hf reimout reim coils -> hf reimout fieldxyz ...')
 
         return field_shift
 
