@@ -1,6 +1,7 @@
 from src.costs.base import BaseCost
 from src.optimizers import DummyOptimizer
 from src.data import Simulation, CoilConfig
+from src.costs.b1_homogeneity import B1HomogeneityCost
 
 import numpy as np
 
@@ -18,3 +19,13 @@ def run(simulation: Simulation,
     optimizer = DummyOptimizer(cost_function=cost_function)
     best_coil_config = optimizer.optimize(simulation)
     return best_coil_config
+
+if __name__ == "__main__":
+    # Example usage
+    simulation = Simulation(path="data/simulations/children_1_tubes_6_id_23713.h5")
+    cost_function = B1HomogeneityCost()
+
+    best_coil_config = run(simulation, cost_function)
+
+    print("Best coil configuration:")
+    print(best_coil_config)
