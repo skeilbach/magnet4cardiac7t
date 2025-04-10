@@ -1,2 +1,2 @@
 from .simulation import Simulation
-from .dataclasses import CoilConfig, SimulationData, SimulationRawData
+from .dataclasses import CoilConfig, SimulationData, SimulationRawData, CoilConfigTorch

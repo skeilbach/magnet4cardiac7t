@@ -1,4 +1,4 @@
-from ..data.simulation import Simulation, SimulationData, CoilConfig
+from ..data.simulation import Simulation, SimulationDataTorch, CoilConfigTorch
 from ..costs.base import BaseCost
 from .base import BaseOptimizer
 
@@ -18,10 +18,10 @@ class DummyOptimizer(BaseOptimizer):
         super().__init__(cost_function)
         self.max_iter = max_iter
         
-    def _sample_coil_config(self) -> CoilConfig:
+    def _sample_coil_config(self) -> CoilConfigTorch:
         phase = np.random.uniform(low=0, high=2*np.pi, size=(8,))
         amplitude = np.random.uniform(low=0, high=1, size=(8,))
-        return CoilConfig(phase=phase, amplitude=amplitude)
+        return CoilConfigTorch(phase=phase, amplitude=amplitude)
         
     def optimize(self, simulation: Simulation):
         best_coil_config = None
