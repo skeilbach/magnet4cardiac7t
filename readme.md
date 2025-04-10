@@ -64,7 +64,7 @@ The task is to maximize this cost function.
 Additionally, we also consider the cost function which maximizes the $B_1^+$ Homogeneity, while also minimizing the peak SAR.
 The cost function is given by
 
-$$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} + \lambda \frac{\text{min}|B_1^+|}{\text{max}(SAR)}$$
+$$\text{cost}_2(\varphi, A) = \frac{\text{mean}(|B_1^+|)}{\text{std}(|B_1^+|)} + \lambda \frac{\text{min}(|B_1^+|)}{\text{max}(SAR)}$$
 
 Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Specific Absorption Rate at a certain point in space given by:
 
