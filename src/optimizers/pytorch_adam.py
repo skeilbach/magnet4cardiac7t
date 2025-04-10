@@ -18,10 +18,6 @@ class OurOptimizer(BaseOptimizer):
         super().__init__(cost_function)
         self.max_iter = max_iter
 
-    def conv_coilconfig(self, coilconfig_torch):
-        x1 = coilconfig_torch.phase.detach().numpy()
-        x2 = coilconfig_torch.amplitude.detach().numpy()
-        return CoilConfig(phase=x1, amplitude=x2)
 
     def optimize(self, simulation: Simulation):
       
@@ -30,7 +26,7 @@ class OurOptimizer(BaseOptimizer):
         # Optimizer
         optimizer = torch.optim.Adam([raw_x1, raw_x2], lr=0.1)
         # Scheduler: decay LR by 0.9 every 20 steps
-        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.9)
+        scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.95)
         # Optimization loop
         #pbar = trange(self.max_iter)
         start_time = time.time()
