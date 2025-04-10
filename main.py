@@ -2,7 +2,6 @@ from src.costs.base import BaseCost
 from src.optimizers import DummyOptimizer
 from src.data import Simulation, CoilConfig
 from src.costs.b1_homogeneity import B1HomogeneityCost
-from src.optimizers import DifferentialEvolutionOptimizer
 import time
 
 import numpy as np

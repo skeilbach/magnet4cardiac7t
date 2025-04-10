@@ -1,6 +1,6 @@
 from .base import BaseCost
-from ..data.simulation import SimulationData
-from ..data.utils import B1Calculator
+from ..data.simulation_torch import SimulationDataTorch
+from ..data.utils_torch import B1Calculator
 
 import numpy as np
 
@@ -11,7 +11,7 @@ class B1HomogeneityMinMaxCost(BaseCost):
         self.direction = "maximize"
         self.b1_calculator = B1Calculator()
 
-    def calculate_cost(self, simulation_data: SimulationData) -> float:
+    def calculate_cost(self, simulation_data: SimulationDataTorch) -> float:
         b1_field = self.b1_calculator(simulation_data)
         #subject = simulation_data.subject
         

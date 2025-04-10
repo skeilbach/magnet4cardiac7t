@@ -1,9 +1,9 @@
-from .data import CoilConfig, Simulation
+from .data import CoilConfigTorch, Simulation
 from .costs.base import BaseCost
 
 from typing import Dict, Any
 
-def evaluate_coil_config(coil_config: CoilConfig, 
+def evaluate_coil_config(coil_config: CoilConfigTorch, 
                          simulation: Simulation,
                          cost_function: BaseCost) -> Dict[str, Any]:
     """
@@ -17,7 +17,7 @@ def evaluate_coil_config(coil_config: CoilConfig,
     Returns:
         A dictionary containing the best coil configuration, cost, and cost improvement.
     """
-    default_coil_config = CoilConfig()
+    default_coil_config = CoilConfigTorch()
 
     simulation_data = simulation(coil_config)
     simulation_data_default = simulation(default_coil_config)
@@ -32,12 +32,12 @@ def evaluate_coil_config(coil_config: CoilConfig,
 
     # Create a dictionary to store the results
     result = {
-        "best_coil_phase": list(coil_config.phase),
-        "best_coil_amplitude": list(coil_config.amplitude),
-        "best_coil_config_cost": best_coil_config_cost,
-        "default_coil_config_cost": default_coil_config_cost,
-        "cost_improvement_absolute": cost_improvement_absolute,
-        "cost_improvement_relative": cost_improvement_relative,
+        "best_coil_phase": coil_config.phase.detach().cpu().tolist(),
+        "best_coil_amplitude": coil_config.amplitude.detach().cpu().tolist(),
+        "best_coil_config_cost": best_coil_config_cost.detach().cpu().item(),
+        "default_coil_config_cost": default_coil_config_cost.detach().cpu().item(),
+        "cost_improvement_absolute": cost_improvement_absolute.detach().cpu().item(),
+        "cost_improvement_relative": cost_improvement_relative.detach().cpu().item(),
         "cost_function_name": cost_function.__class__.__name__,
         "cost_function_direction": cost_function.direction,
         "simulation_data": simulation_data.simulation_name,

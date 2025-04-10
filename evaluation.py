@@ -9,7 +9,8 @@ import json
 
 if __name__ == "__main__":
     # Load simulation data
-    simulation = Simulation("data/simulations/children_2_tubes_7_id_3012.h5")
+    simulation = Simulation(path = "C:\\Users\\User\\Desktop\\Hackathon\\data\\simulations\\children_1_tubes_6_id_23713.h5",
+                            coil_path = "C:\\Users\\User\\Desktop\\Hackathon\\data\\antenna\\antenna.h5")
     
     # Define cost function
     cost_function = B1HomogeneityCost()
