@@ -70,7 +70,7 @@ Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Spe
 
 $$\text{SAR}(x) = \frac{|E(x)|^2\cdot\sigma(x)}{\rho(x)}$$
 
-with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density.
+with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density. During evaluation a weighting factor of $\lambda=100$ will be used.
 
 ## Data
 You can download the data from [Google Drive](https://drive.google.com/drive/folders/17yIm9Pjc1QsyB-fAGvf5FCk9AmqIDXUW?usp=drive_link)
