@@ -70,7 +70,7 @@ Where $\lambda$ is an additional weighting factor and $\text{SAR}(x)$ is the Spe
 
 $$\text{SAR}(x) = \frac{|E(x)|^2\cdot\sigma(x)}{\rho(x)}$$
 
-with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density
+with $\sigma(x)$-electric conductivity and $\rho(x)$-mass density.
 
 ## Data
 You can download the data from [Google Drive](https://drive.google.com/drive/folders/17yIm9Pjc1QsyB-fAGvf5FCk9AmqIDXUW?usp=drive_link)
@@ -94,6 +94,8 @@ project/
 All teams will be asked to submit their solutions as a git repository. In the git repository the `main.py` should be modified (only) to include the optimization algorithm developed by the team. The `evaluation.py` script should not be changed at all.
 
 Each submission will be evaluated on a previously unseen set of simulations, with both cost functions specified in the task. The optimization algorithm should run within 5 Minutes after which the program execution will timeout and the solution will be disqualified.
+
+For the second cost function a weighting factor of $\lambda = 100$ will be used during evaluation.
  
 ## Ideas where to go from here
 - Implement parallel processing during optimization
